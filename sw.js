@@ -1,4 +1,4 @@
-const cacheName = 'v10';
+const cacheName = 'v11';
 // Core assets
 
 let cacheAssets = [
@@ -18,7 +18,7 @@ let cacheAssets = [
 self.addEventListener('install', function (event) {
 
 	// Cache core assets
-	event.waitUntil(caches.open('cacheName').then(function (cache) {
+	event.waitUntil(caches.open(cacheName).then(function (cache) {
 		cache.addAll(cacheAssets);
 		return cache;
 	})
