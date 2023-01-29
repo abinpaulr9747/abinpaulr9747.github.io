@@ -1,36 +1,94 @@
-const cacheName = 'v4';
-// fetch event
-self.addEventListener('fetch', evt => {
-    // check if request is made by chrome extensions or web page
-    // if request is made for web page url must contains http.
-    if (!(evt.request.url.indexOf('http') === 0)) return; // skip the request. if request is not made with http protocol
-  
-    evt.respondWith(
-      caches
-        .match(evt.request)
-        .then(
-          cacheRes =>
-            cacheRes ||
-            fetch(evt.request).then(fetchRes =>
-              caches.open(dynamicNames).then(cache => {
-                cache.put(evt.request.url, fetchRes.clone());
-                // check cached items size
-                limitCacheSize(dynamicNames, 75);
-                return fetchRes;
-              })
-            )
-        )
-        .catch(() => caches.match('/fallback'))
-    );
-  });
-  
-  // cache size limit function
-  const limitCacheSize = (name, size) => {
-    caches.open(name).then(cache => {
-      cache.keys().then(keys => {
-        if (keys.length > size) {
-          cache.delete(keys[0]).then(limitCacheSize(name, size));
-        }
-      });
-    });
-  };
+// Core assets
+let coreAssets = [
+  'alert_settings.html',
+  'index.html',
+  'dashboard.html',
+  'fonts/fontawesome-webfont.ttf',
+];
+
+// On install, cache core assets
+self.addEventListener('install', function (event) {
+
+	// Cache core assets
+	event.waitUntil(caches.open('app').then(function (cache) {
+		for (let asset of coreAssets) {
+			cache.add(new Request(asset));
+		}
+		return cache;
+	}));
+
+});
+
+// Listen for request events
+self.addEventListener('fetch', function (event) {
+
+	// Get the request
+	let request = event.request;
+
+
+	if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
+
+	// HTML files
+	if (request.headers.get('Accept').includes('text/html')) {
+		event.respondWith(
+			fetch(request).then(function (response) {
+
+				// Create a copy of the response and save it to the cache
+				let copy = response.clone();
+				event.waitUntil(caches.open('app').then(function (cache) {
+					return cache.put(request, copy);
+				}));
+
+				// Return the response
+				return response;
+
+			}).catch(function (error) {
+
+				// If there's no item in cache, respond with a fallback
+				return caches.match(request).then(function (response) {
+					return response || caches.match('/offline.html');
+				});
+
+			})
+		);
+	}
+
+	// CSS & JavaScript
+	// Offline-first
+	if (request.headers.get('Accept').includes('text/css') || 
+      request.headers.get('Accept').includes('text/javascript')) {
+		event.respondWith(
+			caches.match(request).then(function (response) {
+				return response || fetch(request).then(function (response) {
+
+					// Return the response
+					return response;
+
+				});
+			})
+		);
+		return;
+	}
+
+	// Images
+	// Offline-first
+	if (request.headers.get('Accept').includes('image')) {
+		event.respondWith(
+			caches.match(request).then(function (response) {
+				return response || fetch(request).then(function (response) {
+
+					// Save a copy of it in cache
+					let copy = response.clone();
+					event.waitUntil(caches.open('app').then(function (cache) {
+						return cache.put(request, copy);
+					}));
+
+					// Return the response
+					return response;
+
+				});
+			})
+		);
+	}
+
+});
