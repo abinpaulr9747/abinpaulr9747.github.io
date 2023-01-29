@@ -1,4 +1,4 @@
-const cacheName = 'v8';
+const cacheName = 'v9';
 // Core assets
 
 let cacheAssets = [
@@ -43,7 +43,7 @@ self.addEventListener('activate', e=>{
 self.addEventListener('fetch', e=>{
 
   e.respondWith(
-      caches.match(request).then(function (response) {
+      caches.match(e.request).then(function (response) {
         return response || fetch(request).then(function (response) {
           return response;
         });
