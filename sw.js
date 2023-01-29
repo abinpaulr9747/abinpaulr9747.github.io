@@ -1,7 +1,8 @@
-const cacheName = 'v3';
+const cacheName = 'v4';
 // Core assets
 let cacheAssets = [
   'alert_settings.html',
+  'configuration.html',
   'index.html',
   'dashboard.html',
   'fonts/fontawesome-webfont.ttf',
