@@ -1,16 +1,16 @@
-const cacheName = 'v12';
+const cacheName = 'v13';
 // Core assets
 
 let cacheAssets = [
-  '/alert_settings.html',
-  '/configuration.html',
-  '/users.html',
-  '/system.html',
-  '/network.html',
-  '/index.html',
-  '/dashboard.html',
+  'alert_settings.html',
+  'configuration.html',
+  'users.html',
+  'system.html',
+  'network.html',
+  'index.html',
+  'dashboard.html',
   '/fonts/fontawesome-webfont.ttf',
-  '/offline.html',
+  'offline.html'
 ];
 
 
@@ -20,6 +20,7 @@ self.addEventListener('install', function (event) {
 	// Cache core assets
 	event.waitUntil(caches.open(cacheName).then(function (cache) {
 		cache.addAll(cacheAssets);
+    console.log(cache);
 		return cache;
 	})
   .then(()=>self.skipWaiting())
