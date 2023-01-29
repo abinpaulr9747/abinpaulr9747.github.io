@@ -1,10 +1,11 @@
-const cacheName = 'v9';
+const cacheName = 'v10';
 // Core assets
 
 let cacheAssets = [
   '/alert_settings.html',
   '/configuration.html',
   '/users.html',
+  '/system.html',
   '/network.html',
   '/index.html',
   '/dashboard.html',
@@ -42,8 +43,10 @@ self.addEventListener('activate', e=>{
 
 self.addEventListener('fetch', e=>{
 
+  let request = e.request;
+
   e.respondWith(
-      caches.match(e.request).then(function (response) {
+      caches.match(request).then(function (response) {
         return response || fetch(request).then(function (response) {
           return response;
         });
