@@ -1,0 +1,120 @@
+<h3>Dashboard</h3>
+
+<ul class="head_list" >
+    <li>
+        <h5>System Overview</h5>
+    </li>
+</ul>
+
+<p></p>
+
+<div class="row main_row">
+    <div class="col-sm-3 separate_col">
+
+        <div class="sub_container">
+
+            <div class="each_sections chart">
+
+                <b>Total Sensors: 8</b>
+    
+                <canvas id="chart_display"></canvas>
+    
+            </div>
+
+            <div class="each_sections each_sections_mobile">
+
+                <table class="set_table">
+                    <tr>
+                        <td><b>Channel Max Power</b></td>
+                        <td><span class="text-danger">1 alert <i class="fa fa-exclamation-circle" aria-hidden="true"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Channel Min Power</b></td>
+                        <td><span class="text-danger">1 alert <i class="fa fa-exclamation-circle" aria-hidden="true"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Insertion Loss</b></td>
+                        <td><span class="text-danger">1 alert <i class="fa fa-exclamation-circle" aria-hidden="true"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Return Loss</b></td>
+                        <td><span class="text-danger">1 alert <i class="fa fa-exclamation-circle" aria-hidden="true"></i></span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="each_sections">
+
+                <table class="set_table small_grey">
+                    <tr>
+                        <td>Channels Licence</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Licence Expiration Date</td>
+                        <td>2022/12/31</td>
+                    </tr>
+                  
+                </table>
+    
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-sm-7 separate_col">
+
+        <div class="sub_container">
+
+            <table class="table json_data_result">
+                <thead>
+                <tr>
+                    <td class="top_header_row" colspan="4">
+                        <a href="#">Show All</a>
+                        |
+                        <a href="#">Show Failed</a>
+                    </td>
+                </tr>
+                <tr class="main_head_tr">
+                    <th class="no_mobile"></th>
+                    <th>Sensor <span class="sensor_all rounded_area">All: 8</span></th>
+                    <th class="no_mobile">Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="antenna_content">
+               
+            </tbody>
+            </table>
+
+        </div>
+        
+    </div>
+
+    <div class="col-sm-1">
+        <span class="right_side_buttons"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+        <span class="right_side_buttons">SPECTRUM ANALYZER</span>
+        <span class="right_side_buttons">SYSTEM EVENT LOGS</span>
+    </div>
+   
+
+</div>
+
+<script>
+  
+    new Chart(document.getElementById('chart_display'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Normal', 'Failed'],
+        datasets: [{
+          label: 'Sensors',
+          data: [7, 1],
+          borderWidth: 1
+        }]
+      }
+    });
+
+
+  </script>

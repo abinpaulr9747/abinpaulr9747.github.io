@@ -1,0 +1,134 @@
+<h3>Configuration</h3>
+
+<div class="configuration">
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Sensor</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">RF Spectrum Analyzer</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+      <p></p>
+      <p></p>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        ADD A NEW SENSOR
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">ADD A SENSOR</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body">
+
+              <p><b>Choose the sensor type and do the initial setup</b></p>
+                <ul class="nav nav-tabs" id="modalTab" role="tablist">
+
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="antena-tab" data-bs-toggle="tab" data-bs-target="#antena" type="button" role="tab" aria-controls="home" aria-selected="true">ANTENNA</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="txinput-tab" data-bs-toggle="tab" data-bs-target="#txinput" type="button" role="tab" aria-controls="profile" aria-selected="false">TX INPUT</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="virtual-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">VIRTUAL</button>
+                    </li>
+
+                </ul>
+
+              <div class="tab-content" id="myTabmodal">
+
+                  <div class="tab-pane fade show active configuration_form" id="antena" role="tabpanel" aria-labelledby="antena-tab">
+
+                    <p></p>
+                    <p>Give your sensor a name and select configuration file</p>
+
+                    <div class="bordered-form margin_bottom col-sm-12">
+
+                        <div class="form-left-col">
+
+                          <label class="form-label" for="sensor_name" >SENSOR NAME</label>
+                          <input type="text" class="form-control" id="sensor_name" name="sensor_name" value="" placeholder="Sensor Name">
+
+                        </div>
+
+                        <div class="form-right-col">
+                            <label class="form-label">ALARM</label>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="bordered-form col-sm-12 nopadding">
+
+                      <div class="row">
+
+                      <div class="col-sm-12 bottom-border flex_box">
+
+                        <div class="form-left-col">
+                          <label class="form-label" for="forward_colabration_file" >SELECT FORWARD COLLABRATION FILE</label>
+                          <select class="form-control" name="forward_colabration_file"><option></option></select>
+                        </div>
+
+                        <div class="form-right-col">
+                            <label class="form-label" for="forward_port" >FORWARD PORT</label>
+                            <input type="text" class="form-control" id="forward_port" name="forward_port" value="" placeholder="Forward Port">
+                        </div>
+                        
+                      </div>
+
+                      <div class="col-sm-12 flex_box">
+
+                        <div class="form-left-col">
+                          <label class="form-label" for="sensor_name" >ASSOCIATED REVERSE FILE</label>
+                          <p>&nbsp;</p>
+                        </div>
+
+                        <div class="form-right-col">
+                          <label class="form-label" for="sensor_name" > REVERSE PORT</label>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="tab-pane fade" id="txinput" role="tabpanel" aria-labelledby="txinput-tab">
+
+                  </div>
+
+                  <div class="tab-pane fade" id="virtual" role="tabpanel" aria-labelledby="virtual-tab">
+
+                  </div>
+
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+        
+
+    </div>
+</div>
+
+</div>
