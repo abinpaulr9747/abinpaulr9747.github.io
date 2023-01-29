@@ -1,4 +1,4 @@
-const cacheName = 'v11';
+const cacheName = 'v12';
 // Core assets
 
 let cacheAssets = [
@@ -33,6 +33,7 @@ self.addEventListener('activate', e=>{
     return Promise.all(
       cacheNames.map(cache=>{
         if(cache != cacheName){
+          console.log(cache+'--'+cacheName);
           return caches.delete(cache);
         }
       })
