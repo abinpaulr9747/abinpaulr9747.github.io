@@ -38,6 +38,8 @@ self.addEventListener('activate', e=>{
 
 self.addEventListener('fetch', e=>{
 
+  let request = e.request;
+
   //fetch from 
 
   if (e.request.headers.get('Accept').includes('application/json')) {
