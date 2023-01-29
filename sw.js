@@ -1,3 +1,4 @@
+const cacheName = 'v4';
 // fetch event
 self.addEventListener('fetch', evt => {
     // check if request is made by chrome extensions or web page
