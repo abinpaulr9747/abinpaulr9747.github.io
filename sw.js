@@ -1,41 +1,53 @@
+const cacheName = 'v1';
 // Core assets
-let coreAssets = [
+let cacheAssets = [
   'alert_settings.html',
   'index.html',
   'dashboard.html',
   'fonts/fontawesome-webfont.ttf',
+  'offline.html',
 ];
+
 
 // On install, cache core assets
 self.addEventListener('install', function (event) {
 
 	// Cache core assets
-	event.waitUntil(caches.open('app').then(function (cache) {
-		for (let asset of coreAssets) {
-			cache.add(new Request(asset));
-		}
+	event.waitUntil(caches.open('cacheName').then(function (cache) {
+		cache.addAll(cacheAssets);
 		return cache;
-	}));
+	})
+  .then(()=>self.skipWaiting())
+  );
 
 });
 
-// Listen for request events
-self.addEventListener('fetch', function (event) {
+self.addEventListener('activate', e=>{
 
-	// Get the request
-	let request = event.request;
+  e.waitUntil(caches.keys.then(cacheNames=>{
+    return Promise.all(
+      cacheNames.map(cache=>{
+        if(cache != cacheName){
+          return caches.delete(cache);
+        }
+      })
+    )
+  }));
 
+});
 
-	if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
+self.addEventListener('fetch', e=>{
 
-	// HTML files
-	if (request.headers.get('Accept').includes('text/html')) {
-		event.respondWith(
+  //fetch from 
+
+  if (e.request.headers.get('Accept').includes('application/json')) {
+
+		e.respondWith(
 			fetch(request).then(function (response) {
 
 				// Create a copy of the response and save it to the cache
 				let copy = response.clone();
-				event.waitUntil(caches.open('app').then(function (cache) {
+				e.waitUntil(caches.open('cacheName').then(function (cache) {
 					return cache.put(request, copy);
 				}));
 
@@ -51,44 +63,17 @@ self.addEventListener('fetch', function (event) {
 
 			})
 		);
-	}
 
-	// CSS & JavaScript
-	// Offline-first
-	if (request.headers.get('Accept').includes('text/css') || 
-      request.headers.get('Accept').includes('text/javascript')) {
-		event.respondWith(
-			caches.match(request).then(function (response) {
-				return response || fetch(request).then(function (response) {
+  }else{
 
-					// Return the response
-					return response;
+    e.respondWith(
+      caches.match(request).then(function (response) {
+        return response || fetch(request).then(function (response) {
+          return response;
+        });
+      })
+    );
 
-				});
-			})
-		);
-		return;
-	}
-
-	// Images
-	// Offline-first
-	if (request.headers.get('Accept').includes('image')) {
-		event.respondWith(
-			caches.match(request).then(function (response) {
-				return response || fetch(request).then(function (response) {
-
-					// Save a copy of it in cache
-					let copy = response.clone();
-					event.waitUntil(caches.open('app').then(function (cache) {
-						return cache.put(request, copy);
-					}));
-
-					// Return the response
-					return response;
-
-				});
-			})
-		);
-	}
+  }
 
 });
