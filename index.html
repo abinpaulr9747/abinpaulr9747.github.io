@@ -614,7 +614,6 @@
 
         $.ajax({
             url: type+".html",
-            cache: false,
             success: function(html){
                 $(id).html(html);
             }
@@ -628,7 +627,7 @@
             switch(area) {
                 case 'dashboard':
                     $.ajax({
-                        url: "json.php?type=ant",
+                        url: "json.php",
                         dataType:'json',
                         success: function(result){
                             $.each(result, function( index, value ) {
