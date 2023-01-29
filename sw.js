@@ -1,4 +1,4 @@
-const cacheName = 'v7';
+const cacheName = 'v8';
 // Core assets
 
 let cacheAssets = [
@@ -42,44 +42,12 @@ self.addEventListener('activate', e=>{
 
 self.addEventListener('fetch', e=>{
 
-  let request = e.request;
-
-  //fetch from 
-
-  if (e.request.headers.get('Accept').includes('application/json')) {
-
-		e.respondWith(
-			fetch(request).then(function (response) {
-
-				// Create a copy of the response and save it to the cache
-				let copy = response.clone();
-				e.waitUntil(caches.open('cacheName').then(function (cache) {
-					return cache.put(request, copy);
-				}));
-
-				// Return the response
-				return response;
-
-			}).catch(function (error) {
-
-				// If there's no item in cache, respond with a fallback
-				return caches.match(request).then(function (response) {
-					return response || caches.match('/offline.html');
-				});
-
-			})
-		);
-
-  }else{
-
-    e.respondWith(
+  e.respondWith(
       caches.match(request).then(function (response) {
         return response || fetch(request).then(function (response) {
           return response;
         });
       })
     );
-
-  }
 
 });
