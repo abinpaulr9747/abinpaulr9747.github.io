@@ -1,4 +1,4 @@
-const cacheName = 'v13';
+const cacheName = 'v14';
 // Core assets
 
 let cacheAssets = [
@@ -30,16 +30,7 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('activate', e=>{
 
-  e.waitUntil(caches.keys().then(cacheNames=>{
-    return Promise.all(
-      cacheNames.map(cache=>{
-        if(cache != cacheName){
-          console.log(cache+'--'+cacheName);
-          return caches.delete(cache);
-        }
-      })
-    )
-  }));
+ 
 
 });
 
