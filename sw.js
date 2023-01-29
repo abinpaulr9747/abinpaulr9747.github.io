@@ -1,4 +1,4 @@
-const cacheName = 'v4';
+const cacheName = 'v5';
 // Core assets
 let cacheAssets = [
   'alert_settings.html',
