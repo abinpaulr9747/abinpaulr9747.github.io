@@ -4,6 +4,7 @@ const cacheName = 'v6';
 let cacheAssets = [
   'alert_settings.html',
   'configuration.html',
+  'network.html',
   'index.html',
   'dashboard.html',
   'fonts/fontawesome-webfont.ttf',
